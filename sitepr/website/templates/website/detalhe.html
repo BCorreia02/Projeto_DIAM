@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "website/index.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+{% block sidebar %}
+<div class="detalhemodelo">
+    <div class="displaydetalhe">
+
+         <!-- The Grid -->
+  <div class="w3-row-padding">
+
+
+    <!-- Left Column -->
+    <div class="w3-twothird">
+
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+
+          <img src="{{ modelo.foto }}" style="width:60%; border-radius:75px" alt="Avatar">
+          <div>
+            <h2>{{ modelo.modelo }}</h2>
+          </div>
+        </div>
+      </div><br>
+   <div class="w3">
+
+
+
+
+       <div class="w3-container w3-card w3-white w3-margin-bottom">
+
+            <h2 class="w3-text-grey w3-padding-16">
+                <div class="w3-display-container">
+                    <img src="{{ modelo.id_user.foto }}" class="detalheuserimage2" alt="{{ modelo.id_user }}">
+
+                    <a> Vendedor: {{ modelo.id_user.user.username }}</a>
+                </div>
+            </h2>
+
+         </div>
+       <div>
+
+
+
+    <!-- End Left Column -->
+    </div>  </div>  </div>
+
+
+   <!-- Left Column -->
+    <div class="w3-third">
+
+      <div class="w3-white w3-text-grey w3-card-4">
+
+         <div class="w3-container">
+           <div class="infomodelo">
+        <h1>{{ modelo.nome_modelo }}</h1>
+        <p>Marca: {{ modelo.marca }}</p>
+        <p>Modelo: {{ modelo.nome_modelo }}</p>
+        <p>Tamanho: {{ modelo.tamanho }}</p>
+        <p>Referência: {{ modelo.referência }}</p>
+        <p>Data de lançamento: {{ modelo.data_lançamento }}</p>
+        <p>Tipo: {{ modelo.tipo }}</p>
+        <p>Model ID: {{ modelo.id }}</p>
+
+        <h3>Preço: {{ modelo.preço }} €</h3>
+
+        </div>
+          <hr>
+
+
+          <br>
+        </div>
+      </div><br>
+
+
+    <!-- End Left Column -->
+    </div>
+
+           <!-- Left Column -->
+
+  </div>
+
+  <!-- End Page Container -->
+</div>
+
+</div>
+
+ {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser %}
+                 <a href="{% url 'website:deleteModelView' modelo.id %}" class="apagarmodelobutton">Apagar</a><br><br>
+            {% else %}
+
+                {% if modelo.id_user.id == request.user.utilizador.id %}
+
+                    <a href="{% url 'website:deleteModelView' modelo.id %}" class="apagarmodelobutton">Apagar</a><br><br>
+                {% else %}
+
+<a href="{% url 'website:deleteModelView' modelo.id %}" class="comprarmodelobutton" onclick="alert('Compra efetuada com sucesso \nA entrega será realizada dentro de 5 dias uteis')">Comprar</a> <br>
+<form  action="{% url 'website:addComentView' modelo.id %}" method="POST">
+                    {% csrf_token %}
+                        <div class="sumbitcomment">
+                            <input type="text" placeholder="Insira o comentário" name="texto" id="texto" class="submitcommentbar" required><br>
+                        </div>
+                        <input type="submit" value="Adicionar Comentario">
+                    </form>
+                {% endif %}
+            {% endif %}
+            {% else %}
+                <p> Registe-se/Inicie Sessão para puder adicionar comentários</p>
+            {% endif %}
+
+
+{%if lista_coments %}
+            {% for c in lista_coments%}
+            {% if c.modelo.id == modelo.id %}
+            {{ c.texto}} | {{ c.data}} <br>
+            {% endif %}
+
+            {% endfor %}
+            {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+{% endblock %}
+</body>
+</html>

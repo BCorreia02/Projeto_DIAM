@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "website/index.html" %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+{% block sidebar %}
+<div class="addmodelpagecontent">
+<form action="{% url 'website:addModelView' %}" enctype="multipart/form-data" method="POST" class="form">
+     {% csrf_token %}
+  <div class="container">
+    <h1>Adicionar Modelo</h1>
+    <p>Insira os dados para adicionar um Modelo</p>
+    <hr>
+      <label for="marca"><b>Marca</b></label>
+    <input type="text" placeholder="Insira o marca" name="marca" id="marca" required><br>
+
+    <label for="nome_modelo"><b>Nome do Modelo</b></label>
+    <input type="text" placeholder="Insira o nome" name="nome_modelo" id="nome_modelo" required><br>
+
+    <label for="tamanho"><b>Tamanho</b></label>
+    <input type="text" placeholder="Enter tamanho" name="tamanho" id="tamanho" required><br>
+
+<label for="referência"><b>Refrência</b></label>
+    <input type="text" placeholder="Enter referencia" name="referência" id="referência" required><br>
+
+
+   <label for="preço"><b>Preço</b></label>
+    <input type="text" placeholder="Enter preço" name="preço" id="preço" required><br>
+
+
+   <label for="tipo"><b>Tipo de Sapato</b></label>
+    <input type="text" placeholder="Enter tipo" name="tipo" id="tipo" required><br>
+      <label for="foto"><b>Foto</b></label><br>
+      <div>
+      <input type="file" name="foto" id="foto" required><br>
+        </div>
+ {% if uploaded_file_url %}
+<p>Feito o upload para:
+<a href="{{ uploaded_file_url }}">
+    {{ uploaded_file_url }} </a></p>
+ {% endif %}
+ <p>
+    <input type="submit" value="Register">
+  </div>
+</form>
+</div>
+{% endblock %}
+</body>
+</html>

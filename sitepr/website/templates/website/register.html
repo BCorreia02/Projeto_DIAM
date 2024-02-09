@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "website/index.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body class="regpagecontent">
+    {% block sidebar %}
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <form action="{% url 'website:register' %}" method="post" enctype="multipart/form-data">
+           {% csrf_token %}
+
+            <div class="container">
+                <label for="Nome"><b>Nome</b></label>
+                <input type="text" placeholder="Enter Username" name="nome" id="nome" required>
+                <label for="email"><b>Email</b></label>
+                <input type="email" placeholder="Enter Email" name="email" id="email" required>
+                <label for="telemovel"><b>Telemovel</b></label>
+                <input type="telemovel" placeholder="Enter Number" name="telemovel" id="telemovel" required>
+                <label for="pais"><b>Pais</b></label>
+                <input type="pais" placeholder="Enter Country" name="pais" id="pais" required>
+                <label for="ocupacao"><b>Trabalho</b></label>
+                <input type="ocupacao" placeholder="Enter job" name="ocupacao" id="ocupacao" required>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+                <label for="foto"><b>Foto</b></label>
+                <input type="file" name="foto" id="foto" >
+
+                {% if uploaded_file_url %}
+                <p>Feito o upload para:
+                <a href="{{ uploaded_file_url }}">
+                    {{ uploaded_file_url }} </a></p>
+                {% endif %}
+                <p>
+
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "website/index.html" %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     {%load static%}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+{% block sidebar %}
+<div class="errologpage">
+<h1>Não nenhum utilizador com essas credênciais. Verifique que inseriu os dados corretamente ou registe-se</h1>
+</div>
+{% endblock %}
+</body>
+</html>

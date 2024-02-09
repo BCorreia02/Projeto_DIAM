@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "website/index.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+{% block sidebar %}
+<div class="showcaseperfil" style="margin-top:10%">
+    {% if usersList%}
+    {% for result in usersList %}
+    <div class="card">
+        <img src="{{ result.foto}}"  width="100px"></a>
+        <h1>{{  result.user.username  }}</h1>
+        <p>{{  result.user.email  }}</p>
+        <a href="#"><i class="fa fa-dribbble"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="{% url 'website:apagaCliente' result.user_id %}">Apagar</a>
+    </div>
+
+
+    {% endfor %}
+    {% endif %}
+    </div>
+
+{% endblock %}
+</body>
+</html>

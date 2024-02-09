@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "website/index.html" %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+{% load static %}
+{% block sidebar %}<!-- Page Container -->
+        <div class="perfilpagecontent">
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+
+    <!-- Left Column -->
+    <div class="w3-third">
+
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+          <img src="{{request.user.utilizador.foto}}" style="width:50%; border-radius:100px" alt="Avatar">
+          <div>
+            <h2>{{request.user.username}}</h2>
+          </div>
+        </div>
+        <div class="w3-container">
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>{{request.user.utilizador.ocupacao}}</p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ request.user.utilizador.pais }}</p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{request.user.email}}</p>
+          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{request.user.utilizador.telemovel}}</p>
+          <hr>
+
+
+          <br>
+        </div>
+      </div><br>
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16">
+            <i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>
+            <a href="{% url 'website:addModelView' %}"> Adicionar modelo</a>
+        </h2>
+
+      </div>
+
+      <div class="w3-container w3-card w3-white">
+      <div class="w3-container wl3-card w3-white">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Modelos</h2>
+        <div class="w3-container">
+           <div class="showcaseperfil" style="margin-top:1%">
+            {% if lista_modelos %}
+            {% for modelo in lista_modelos %}
+            <div class="card">
+                <a href="{% url 'website:detalhe' modelo.id %}"><img src="{{ modelo.foto }}" width="100px"> </a>
+         <p>{{ modelo.nome_modelo }}  | ref: {{modelo.referência }}</p>
+                <h2 class="price">{{modelo.preço}}€</h2>
+                <p><button><a href="{% url 'website:deleteModelView' modelo.id %}"  onclick="alert('Apagou com sucesso o modelo ')">Apagar Modelo</a> <br></button></p>
+            </div>
+            {% endfor %}
+            {% else %}
+              <h1>Não existem modelos na Coleção</h1>
+            {% endif %}
+            </div>
+
+    </div>
+
+  </div>
+
+  <!-- End Page Container -->
+</div>
+
+</div>
+    </div>
+                {% endblock %}
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "website/index.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+  {% block sidebar %}
+<div class="logpagecontent">
+  <form action="{% url 'website:loginView' %}" method="post">
+      {% csrf_token %}
+
+    <div class="container">
+      <label for="nome"><b>Nome</b></label>
+      <input type="text" placeholder="Insira o nome" name="nome" id="nome" required>
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+
+      <button type="submit">Login</button>
+      <label>
+        <span class="notreg">Not <a href="{% url 'website:pedeRegisto' %}" style="text-decoration: none;">registered?</a></span>
+      </label>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
+</body>
+</html>

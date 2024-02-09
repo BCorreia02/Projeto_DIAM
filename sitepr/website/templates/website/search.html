@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "website/index.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+{% block sidebar %}
+
+
+
+<div class="dp">
+
+    <h1>Resultados</h1>
+<div class="showcaseperfil" style="margin-top:10%">
+            {% if resultados %}
+            {% for modelo in resultados %}
+            <div class="card">
+                <a href="{% url 'website:detalhe' modelo.id %}"><img src="{{ modelo.foto }}" width="100px"> </a>
+         <p>{{ modelo.nome_modelo }}  | ref: {{modelo.referência }}</p>
+                <h2 class="price">{{modelo.preço}}€</h2>
+                <p><button><a href="{% url 'website:buyModelView' modelo.id %}"  onclick="alert('Compra efetuada com sucesso \nA entrega será realizada dentro de 5 dias uteis')">Comprar</a> <br></button></p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}
+</body>
+</html>
